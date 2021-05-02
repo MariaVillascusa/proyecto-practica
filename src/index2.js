@@ -15,6 +15,7 @@ getPersonajes().then(response => response.json())
         mostrarInfo(contador, data);
         cambioBoton(data);
         cambioTeclas(data);
+        cambioClick(data);
     })
 
 function getPersonajes() {
@@ -34,7 +35,6 @@ function tablaPerso(personajes) {
 }
 
 function mostrarInfo(i, personajes) {
-
     var varita = (personajes[i].wand);
     var wand = varita.wood + ' wood, ' + varita.core + ' core, ' + varita.length + ' cm';
     div_datos.innerHTML = `
@@ -75,7 +75,7 @@ function cambioBoton(personajes) {
 
 function cambioTeclas(personajes) {
     var personajes = personajes;
-    document.onkeyup = (tecla) => {
+    document.onkeydown = (tecla) => {
 
         var teclaPulsada = tecla.keyCode;
         if (teclaPulsada == 39) {
@@ -87,8 +87,24 @@ function cambioTeclas(personajes) {
     }
 }
 
-function cambioCeldas(personajes) {
-
+function cambioClick(personajes) {
+    var celdas = [];
+    for (var i = 0; i < personajes.length; i++) {
+        var celda = (document.getElementById(i));
+        celdas.push(celda);
+    }
+    for (var i = 0; i < celdas.length; i++) {
+        celdas[i].onclick = (e) => {
+            indice = Array.from(celdas).indexOf(e.target);
+            mostrarInfo(indice, personajes)
+            contador = indice;
+            id = indice;
+            for (var c of celdas) {
+                c.style.background = 'rgb(26, 25, 31)';
+            }
+            celdas[indice].style.background = 'grey';
+        };
+    }
 }
 
 function der(personajes) {
@@ -106,9 +122,6 @@ function izq(personajes) {
     }
     celdasColor();
 }
-
-
-
 
 /*
 function selectPersonaje(personajes) {
