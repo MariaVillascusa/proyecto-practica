@@ -1,5 +1,4 @@
 
-var personajes = [];
 const select = document.getElementById('select-personaje');
 const table = document.getElementById('table');
 const div_datos = document.getElementById('datos');
@@ -9,8 +8,7 @@ var id = 0;
 var contador = 0;
 
 getPersonajes().then(response => response.json())
-    .then(data => {
-        personajes = data;
+    .then(data => {data;
         tablaPerso(data);
         mostrarInfo(contador, data);
         cambioBoton(data);
